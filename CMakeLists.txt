@@ -87,7 +87,7 @@ if( WIN32 )
   set( Boost_USE_STATIC_LIBS ON )
 endif()
 
-set( REQUIRED_BOOST_COMPONENTS thread system date_time filesystem )
+set( REQUIRED_BOOST_COMPONENTS thread system date_time filesystem random )
 
 option( BUILD_CLI_TOOLS "Build command-line tools" ON )
 #make the option to build the cli documentation available if and only if the cli tools will be built

@@ -39,6 +39,7 @@
 #define __DataManager_hxx
 
 #include <iostream>
+#include <boost/nondet_random.hpp>
 
 #include "DataManager.h"
 #include "HDF5Utils.h"
@@ -246,7 +247,8 @@ typename DataManager<T>::CrossValidationFoldListType DataManager<T>::GetCrossVal
     }
 
     // randomly shuffle the vector
-    srand(time(0));
+    unsigned seed = boost::random_device()();
+    srand(seed);
     if (randomize) {
         std::random_shuffle(batchAssignment.begin(), batchAssignment.end());
     }

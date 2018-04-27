@@ -44,6 +44,7 @@
 #include <limits>
 
 #include <boost/random.hpp>
+#include <boost/nondet_random.hpp>
 
 #include <Eigen/Dense>
 
@@ -64,7 +65,8 @@ class RandSVD {
         unsigned n = A.rows();
 
 
-        static boost::minstd_rand randgen(static_cast<unsigned>(time(0)));
+        unsigned seed = boost::random_device()();
+        static boost::minstd_rand randgen(static_cast<unsigned>(seed));
         static boost::normal_distribution<> dist(0, 1);
         static boost::variate_generator<boost::minstd_rand, boost::normal_distribution<> > r(randgen, dist);
 

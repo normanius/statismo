@@ -41,6 +41,8 @@
 #include <itkIdentityTransform.h>
 #include <itkTransformMeshFilter.h>
 
+#include <boost/nondet_random.hpp>
+
 
 typedef std::list<std::string> StringList;
 StringList getFileList(std::string path);
@@ -78,7 +80,7 @@ typename MeshType::Pointer calculateProcrustesMeanMesh(std::vector<typename Mesh
     //the initial mesh to which all others will be aligned to is the first one in the list here. Any other mesh could be chosen as well
     typename MeshType::Pointer referenceMesh = *meshes.begin();
 
-    unsigned rngSeed = time(0);
+    unsigned rngSeed = boost::random_device()();
     unsigned meshVerticesCount = referenceMesh->GetNumberOfPoints();
     srand(rngSeed);
     std::set<unsigned> pointNumbers;

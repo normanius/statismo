@@ -40,13 +40,13 @@
 #define __UTILS_H_
 
 #include <cstdlib>
-#include <ctime>
 
 #include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 #include <boost/filesystem.hpp>
+#include <boost/nondet_random.hpp>
 
 #ifdef _WIN32
 #define NOMINMAX // avoid including the min and max macro
@@ -99,7 +99,8 @@ class Utils {
 
         // we make the random generate static, to ensure that the seed is only set once, and not with
         // every call
-        static boost::minstd_rand randgen(static_cast<unsigned>(time(0)));
+        int seed = boost::random_device()();
+        static boost::minstd_rand randgen(static_cast<unsigned>(seed));
         static boost::normal_distribution<> dist(0, 1);
         static boost::variate_generator<boost::minstd_rand, boost::normal_distribution<> > r(randgen, dist);
 
